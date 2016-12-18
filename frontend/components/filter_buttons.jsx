@@ -7,14 +7,13 @@ const FilterButtons = ({filter, toggleFilter = function(){} }) => {
   );
 
   const _generateButtons = () => (
-    <div>
-      <button className={_getClassName("ALL")}
-              onClick={() => toggleFilter("ALL")}>ALL</button>
-      <button className={_getClassName("COMPLETE")}
-              onClick={() => toggleFilter("COMPLETE")}>COMPLETE</button>
-      <button className={_getClassName("INCOMPLETE")}
-              onClick={() => toggleFilter("INCOMPLETE")}>INCOMPLETE</button>
-    </div>
+    ["ALL", "COMPLETE", "INCOMPLETE"].map( filter => (
+      <button key={filter}
+              className={_getClassName(filter)}
+              onClick={() => toggleFilter(filter)}>
+              {filter}
+      </button>
+    ))
   );
 
   return (

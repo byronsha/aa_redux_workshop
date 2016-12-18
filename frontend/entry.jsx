@@ -10,9 +10,9 @@ import { requestAllTodos } from './actions/todo_actions';
 const Root = () => (
   <Provider store={Store}>
     <div>
+      <FilterButtonsContainer />
       <TodoListContainer />
       <NewTodoFormContainer />
-      <FilterButtonsContainer />
     </div>
   </Provider>
 );

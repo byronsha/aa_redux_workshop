@@ -83,9 +83,9 @@
 	    _react2.default.createElement(
 	      'div',
 	      null,
+	      _react2.default.createElement(_filter_buttons_container2.default, null),
 	      _react2.default.createElement(_todo_list_container2.default, null),
-	      _react2.default.createElement(_new_todo_form_container2.default, null),
-	      _react2.default.createElement(_filter_buttons_container2.default, null)
+	      _react2.default.createElement(_new_todo_form_container2.default, null)
 	    )
 	  );
 	};
@@ -23697,34 +23697,17 @@
 	  };
 	
 	  var _generateButtons = function _generateButtons() {
-	    return _react2.default.createElement(
-	      "div",
-	      null,
-	      _react2.default.createElement(
+	    return ["ALL", "COMPLETE", "INCOMPLETE"].map(function (filter) {
+	      return _react2.default.createElement(
 	        "button",
-	        { className: _getClassName("ALL"),
+	        { key: filter,
+	          className: _getClassName(filter),
 	          onClick: function onClick() {
-	            return toggleFilter("ALL");
+	            return toggleFilter(filter);
 	          } },
-	        "ALL"
-	      ),
-	      _react2.default.createElement(
-	        "button",
-	        { className: _getClassName("COMPLETE"),
-	          onClick: function onClick() {
-	            return toggleFilter("COMPLETE");
-	          } },
-	        "COMPLETE"
-	      ),
-	      _react2.default.createElement(
-	        "button",
-	        { className: _getClassName("INCOMPLETE"),
-	          onClick: function onClick() {
-	            return toggleFilter("INCOMPLETE");
-	          } },
-	        "INCOMPLETE"
-	      )
-	    );
+	        filter
+	      );
+	    });
 	  };
 	
 	  return _react2.default.createElement(

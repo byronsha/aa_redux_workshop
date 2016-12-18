@@ -53,4 +53,5 @@ li span:hover {
 .active {
   font-weight: bold;
   text-decoration: underline;
+  pointer-events: none;
 }
