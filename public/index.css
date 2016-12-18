@@ -49,3 +49,8 @@ li span {
 li span:hover {
   font-weight: bold;
 }
+
+.active {
+  font-weight: bold;
+  text-decoration: underline;
+}

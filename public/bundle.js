@@ -68,6 +68,10 @@
 	
 	var _new_todo_form_container2 = _interopRequireDefault(_new_todo_form_container);
 	
+	var _filter_buttons_container = __webpack_require__(219);
+	
+	var _filter_buttons_container2 = _interopRequireDefault(_filter_buttons_container);
+	
 	var _todo_actions = __webpack_require__(25);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -80,7 +84,8 @@
 	      'div',
 	      null,
 	      _react2.default.createElement(_todo_list_container2.default, null),
-	      _react2.default.createElement(_new_todo_form_container2.default, null)
+	      _react2.default.createElement(_new_todo_form_container2.default, null),
+	      _react2.default.createElement(_filter_buttons_container2.default, null)
 	    )
 	  );
 	};
@@ -106,6 +111,10 @@
 	
 	var _todos_reducer2 = _interopRequireDefault(_todos_reducer);
 	
+	var _filters_reducer = __webpack_require__(218);
+	
+	var _filters_reducer2 = _interopRequireDefault(_filters_reducer);
+	
 	var _todos_middleware = __webpack_require__(215);
 	
 	var _todos_middleware2 = _interopRequireDefault(_todos_middleware);
@@ -113,7 +122,8 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var RootReducer = (0, _redux.combineReducers)({
-	  todos: _todos_reducer2.default
+	  todos: _todos_reducer2.default,
+	  filter: _filters_reducer2.default
 	});
 	
 	var MasterMiddleware = (0, _redux.applyMiddleware)(_todos_middleware2.default);
@@ -23388,9 +23398,26 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var getVisibleTodos = function getVisibleTodos(todos, filter) {
+	  switch (filter) {
+	    case "COMPLETE":
+	      return todos.filter(function (f) {
+	        return f.done;
+	      });
+	      break;
+	    case "INCOMPLETE":
+	      return todos.filter(function (f) {
+	        return !f.done;
+	      });
+	      break;
+	    default:
+	      return todos;
+	  }
+	};
+	
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {
-	    todos: state.todos
+	    todos: getVisibleTodos(state.todos, state.filter)
 	  };
 	};
 	
@@ -23401,9 +23428,6 @@
 	    },
 	    deleteTodo: function deleteTodo(id) {
 	      return dispatch((0, _todo_actions.deleteTodo)(id));
-	    },
-	    toggleFilter: function toggleFilter(filter) {
-	      return dispatch((0, _todo_actions.toggleFilter)(filter));
 	    }
 	  };
 	};
@@ -23522,13 +23546,6 @@
 	var _react2 = _interopRequireDefault(_react);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	// class NewTodoForm extends React.Component {
-	//   constructor(props){
-	//     super(props);
-	//     this.state = f
-	//   }
-	// }
 	
 	var NewTodoForm = function NewTodoForm(_ref) {
 	  var handleSubmit = _ref.handleSubmit;
@@ -23652,6 +23669,134 @@
 	});
 	
 	module.exports = LocalStorageManager;
+
+/***/ },
+/* 217 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(26);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var FilterButtons = function FilterButtons(_ref) {
+	  var filter = _ref.filter,
+	      _ref$toggleFilter = _ref.toggleFilter,
+	      toggleFilter = _ref$toggleFilter === undefined ? function () {} : _ref$toggleFilter;
+	
+	
+	  var _getClassName = function _getClassName(_filter) {
+	    return _filter === filter ? "active" : "";
+	  };
+	
+	  var _generateButtons = function _generateButtons() {
+	    return _react2.default.createElement(
+	      "div",
+	      null,
+	      _react2.default.createElement(
+	        "button",
+	        { className: _getClassName("ALL"),
+	          onClick: function onClick() {
+	            return toggleFilter("ALL");
+	          } },
+	        "ALL"
+	      ),
+	      _react2.default.createElement(
+	        "button",
+	        { className: _getClassName("COMPLETE"),
+	          onClick: function onClick() {
+	            return toggleFilter("COMPLETE");
+	          } },
+	        "COMPLETE"
+	      ),
+	      _react2.default.createElement(
+	        "button",
+	        { className: _getClassName("INCOMPLETE"),
+	          onClick: function onClick() {
+	            return toggleFilter("INCOMPLETE");
+	          } },
+	        "INCOMPLETE"
+	      )
+	    );
+	  };
+	
+	  return _react2.default.createElement(
+	    "div",
+	    null,
+	    _generateButtons()
+	  );
+	};
+	
+	exports.default = FilterButtons;
+
+/***/ },
+/* 218 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var FiltersReducer = function FiltersReducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "ALL";
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case "TOGGLE_FILTER":
+	      return action.filter;
+	      break;
+	    default:
+	      return state;
+	  }
+	};
+	
+	exports.default = FiltersReducer;
+
+/***/ },
+/* 219 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(202);
+	
+	var _filter_buttons = __webpack_require__(217);
+	
+	var _filter_buttons2 = _interopRequireDefault(_filter_buttons);
+	
+	var _todo_actions = __webpack_require__(25);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    filter: state.filter
+	  };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    toggleFilter: function toggleFilter(filter) {
+	      return dispatch((0, _todo_actions.toggleFilter)(filter));
+	    }
+	  };
+	};
+	
+	var FilterButtonsContainer = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_filter_buttons2.default);
+	
+	exports.default = FilterButtonsContainer;
 
 /***/ }
 /******/ ]);

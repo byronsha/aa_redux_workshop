@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import Store from './store/store';
 import TodoListContainer from './components/todo_list_container';
 import NewTodoFormContainer from './components/new_todo_form_container';
+import FilterButtonsContainer from './components/filter_buttons_container';
 import { requestAllTodos } from './actions/todo_actions';
 
 const Root = () => (
@@ -11,6 +12,7 @@ const Root = () => (
     <div>
       <TodoListContainer />
       <NewTodoFormContainer />
+      <FilterButtonsContainer />
     </div>
   </Provider>
 );
